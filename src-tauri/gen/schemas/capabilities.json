@@ -1,0 +1,1 @@
+{"default":{"identifier":"default","description":"Default capability for main and guard windows","local":true,"windows":["main","guard"],"permissions":["core:default","core:webview:allow-create-webview-window","core:webview:default"]}}
