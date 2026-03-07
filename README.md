@@ -1,38 +1,134 @@
 # Nocturne Optimizer
 
-Windows-first desktop prototype zrobiony w **Tauri + Rust + React/TypeScript**.
+Windows-first optimizer built with Tauri 2, Rust, React and TypeScript.
 
-## Sekcje
-1. Live overview procesów i zużycia CPU/RAM/swap.
-2. Live optymalizacja z regułami `Eco / Balanced / Freeze` nakładanymi na procesy w tle.
-3. Autostart z wielu źródeł: `HKCU/HKLM Run`, `RunOnce`, foldery Startup, Scheduled Tasks, Services.
-4. Offline optymalizacja: trzy presety.
-5. Audyt ważnych kluczy rejestru: UAC, Secure Desktop, SmartScreen, LSA PPL.
-6. Bezpieczeństwo: hasło, lista chronionych aplikacji, overlay po powrocie aplikacji na foreground, przełącznik file protection.
-7. Ustawienia silnika.
+## 01. Live Optimization / Selected Profile
 
-## Uruchomienie
+This is the main workflow.
+
+- `Selected Profile` is now the primary control surface.
+- Processes are grouped into real app families instead of raw flat process spam.
+- One rule can cover the full family:
+  - Discord + updater + helper chain
+  - Chrome + Google Update + renderer helpers
+  - Edge + WebView / updater helpers
+- HUD toggle is handled by Rust, so it still reacts when the frontend is under load.
+
+## Preview Slots
+
+| Live Optimization | Overview | HUD |
+| --- | --- | --- |
+| ![Live Optimization Placeholder](docs/screenshots/live-selected-profile-placeholder.svg) | ![Overview Placeholder](docs/screenshots/overview-shadow-telemetry-placeholder.svg) | ![HUD Placeholder](docs/screenshots/hud-overlay-placeholder.svg) |
+
+Replace these placeholders with real screenshots:
+
+- `docs/screenshots/live-selected-profile.png`
+- `docs/screenshots/overview-shadow-telemetry.png`
+- `docs/screenshots/hud-overlay.png`
+
+## Core Modules
+
+### 01. Overview
+
+- rebuilt telemetry hero
+- grouped heavy app families
+- lower refresh pressure on the UI
+- selected profile summary surfaced in the first screen
+
+### 02. Live Optimization
+
+- dark family picker instead of unreadable white selects
+- grouped app family table with helper breakdown
+- sticky selected profile panel
+- per-family CPU / RAM / Disk / GPU sliders
+
+### 03. Autostart
+
+- scans:
+  - `HKCU/HKLM Run`
+  - `RunOnce`
+  - `Policies\\Explorer\\Run`
+  - `RunServices`
+  - `WOW6432Node` startup keys
+  - Startup folders
+  - Scheduled Tasks
+  - Services
+- loading state while startup sources are being collected
+
+### 04. Offline Optimization
+
+- temp cleaner
+- background quiet preset
+- debloat-lite preset
+- loading state for Windows apps and installed program inventory
+
+### 05. Registry Health
+
+- critical security and platform checks
+- scan console
+- repair console
+
+### 06. Security
+
+- app protection password
+- relock on restore / activate
+- startup password for Nocturne
+
+### 07. Network
+
+- adapter overview
+- stored per-process network rule plans
+- loading state while adapters and rules are fetched
+
+### 08. Settings / HUD
+
+- global translucent HUD
+- Rust-driven show / hide hotkey
+- manual HUD toggle button
+- HUD placement designer
+
+## Stack
+
+- Backend: Rust
+- Shell: Tauri 2
+- Frontend: React + TypeScript + Vite
+- UI: custom CSS + Lucide icons
+
+## Development
+
 ```bash
 npm install
 npm run tauri dev
 ```
 
-## Budowa release
+## Production Build
+
 ```bash
+npm install
 npm run build
 npm run tauri build
 ```
 
-## Ważne
-- To jest **rozbudowany starter / prototyp produktu**, nie gotowy zamknięty produkt pod wszystkie wersje Windowsa.
-- Część akcji związanych z usługami, taskami, autostartem i agresywną optymalizacją może wymagać uruchomienia aplikacji **jako administrator**.
-- Tryb `Freeze` zawiesza proces. Nie każda aplikacja lubi wznowienie po suspend/resume.
-- Overlay bezpieczeństwa jest realizowany jako osobne okno Tauri nad pulpitem, a nie jako wstrzyknięcie do procesu obcej aplikacji.
-- `fileProtection` jest przygotowane pod vault lokalny; możesz rozwinąć je o szyfrowane sekrety na bazie DPAPI lub AES-GCM.
+Installer output:
 
-## Roadmapa do v2
-- realny tray i background service,
-- lepsza enumeracja okien per proces,
-- bardziej granularne limity CPU/RAM przez Job Objects,
-- pełny vault na dane lokalne,
-- signed installer i update channel.
+```text
+src-tauri\target\release\bundle\nsis\
+```
+
+## Notes
+
+- Project is Windows-first.
+- Some actions require Administrator privileges.
+- Guard overlay does not replace Windows logon or Secure Desktop.
+- Network rules are stored as process-oriented profiles. Full driver-level bandwidth enforcement would require deeper WFP integration.
+
+## Reset Local State
+
+Delete stale config files between experimental builds:
+
+```text
+%LOCALAPPDATA%\NocturneOptimizer\security.json
+%LOCALAPPDATA%\NocturneOptimizer\settings.json
+%LOCALAPPDATA%\NocturneOptimizer\rules.json
+%LOCALAPPDATA%\NocturneOptimizer\network-rules.json
+```
