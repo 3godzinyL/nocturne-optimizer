@@ -20,11 +20,6 @@ This is the main workflow.
 | --- | --- | --- |
 | ![Live Optimization Placeholder](docs/screenshots/live-selected-profile-placeholder.svg) | ![Overview Placeholder](docs/screenshots/overview-shadow-telemetry-placeholder.svg) | ![HUD Placeholder](docs/screenshots/hud-overlay-placeholder.svg) |
 
-Replace these placeholders with real screenshots:
-
-- `docs/screenshots/live-selected-profile.png`
-- `docs/screenshots/overview-shadow-telemetry.png`
-- `docs/screenshots/hud-overlay.png`
 
 ## Core Modules
 
