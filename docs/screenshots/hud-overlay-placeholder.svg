@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" fill="none">
+  <rect width="1280" height="720" fill="#030308"/>
+  <rect x="882" y="68" width="322" height="220" rx="26" fill="url(#hud)" stroke="#4C3B79"/>
+  <rect x="916" y="118" width="252" height="34" rx="12" fill="#1D1730"/>
+  <rect x="916" y="168" width="116" height="42" rx="16" fill="#181226"/>
+  <rect x="1052" y="168" width="116" height="42" rx="16" fill="#181226"/>
+  <rect x="916" y="226" width="252" height="24" rx="10" fill="#1A142A"/>
+  <text x="72" y="92" fill="#ECE7FF" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="700">Global Translucent HUD</text>
+  <text x="72" y="130" fill="#AFA2D4" font-family="Segoe UI, Arial, sans-serif" font-size="18">Drop real screenshot here</text>
+  <text x="916" y="104" fill="#ECE7FF" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="700">Nocturne Pulse</text>
+  <defs>
+    <linearGradient id="hud" x1="898" y1="80" x2="1188" y2="286" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1A132B" stop-opacity="0.96"/>
+      <stop offset="1" stop-color="#0C0B15" stop-opacity="0.88"/>
+    </linearGradient>
+  </defs>
+</svg>

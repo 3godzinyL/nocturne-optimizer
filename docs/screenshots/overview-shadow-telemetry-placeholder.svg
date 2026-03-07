@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" fill="none">
+  <rect width="1280" height="720" fill="#05040A"/>
+  <rect x="34" y="34" width="1212" height="652" rx="30" fill="#0D0A17" stroke="#2F2746"/>
+  <rect x="70" y="78" width="1140" height="248" rx="28" fill="url(#hero)" stroke="#3B305B"/>
+  <rect x="70" y="354" width="552" height="294" rx="24" fill="#130F20" stroke="#2E2742"/>
+  <rect x="658" y="354" width="552" height="294" rx="24" fill="#130F20" stroke="#2E2742"/>
+  <circle cx="1060" cy="170" r="92" fill="#1C1631"/>
+  <circle cx="1060" cy="170" r="62" fill="#2B2150"/>
+  <circle cx="1060" cy="170" r="34" fill="#5B3DA6"/>
+  <rect x="108" y="122" width="428" height="28" rx="10" fill="#1D1830"/>
+  <rect x="108" y="168" width="600" height="92" rx="22" fill="#161126"/>
+  <rect x="108" y="392" width="476" height="34" rx="12" fill="#191428"/>
+  <rect x="108" y="446" width="476" height="34" rx="12" fill="#191428"/>
+  <rect x="108" y="500" width="476" height="34" rx="12" fill="#191428"/>
+  <rect x="108" y="554" width="476" height="34" rx="12" fill="#191428"/>
+  <rect x="696" y="396" width="476" height="62" rx="18" fill="#181327"/>
+  <rect x="696" y="478" width="476" height="62" rx="18" fill="#181327"/>
+  <rect x="696" y="560" width="476" height="62" rx="18" fill="#181327"/>
+  <text x="104" y="66" fill="#ECE7FF" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="700">Overview / Shadow Telemetry</text>
+  <text x="104" y="104" fill="#AFA2D4" font-family="Segoe UI, Arial, sans-serif" font-size="18">Drop real screenshot here</text>
+  <defs>
+    <linearGradient id="hero" x1="88" y1="84" x2="1186" y2="324" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#18122A"/>
+      <stop offset="1" stop-color="#0F0C19"/>
+    </linearGradient>
+  </defs>
+</svg>

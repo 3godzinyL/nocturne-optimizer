@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" fill="none">
+  <rect width="1280" height="720" fill="#06040D"/>
+  <rect x="36" y="34" width="1208" height="652" rx="28" fill="url(#bg)" stroke="#2B2243"/>
+  <rect x="72" y="86" width="360" height="548" rx="26" fill="#130F22" stroke="#30274A"/>
+  <rect x="464" y="86" width="744" height="204" rx="26" fill="#161126" stroke="#30274A"/>
+  <rect x="464" y="320" width="744" height="314" rx="26" fill="#100D1C" stroke="#30274A"/>
+  <rect x="92" y="132" width="320" height="66" rx="18" fill="#1C1830"/>
+  <rect x="92" y="214" width="320" height="66" rx="18" fill="#231B39"/>
+  <rect x="92" y="296" width="320" height="66" rx="18" fill="#312452"/>
+  <rect x="92" y="378" width="320" height="66" rx="18" fill="#1C1830"/>
+  <rect x="92" y="460" width="320" height="66" rx="18" fill="#1C1830"/>
+  <rect x="498" y="120" width="276" height="38" rx="12" fill="#1E1732"/>
+  <rect x="498" y="176" width="670" height="76" rx="20" fill="#201834"/>
+  <rect x="498" y="350" width="670" height="44" rx="14" fill="#191428"/>
+  <rect x="498" y="414" width="670" height="44" rx="14" fill="#191428"/>
+  <rect x="498" y="478" width="670" height="44" rx="14" fill="#191428"/>
+  <rect x="498" y="542" width="670" height="44" rx="14" fill="#191428"/>
+  <text x="96" y="68" fill="#ECE7FF" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="700">Live Optimization / Selected Profile</text>
+  <text x="96" y="110" fill="#AFA2D4" font-family="Segoe UI, Arial, sans-serif" font-size="18">Drop real screenshot here</text>
+  <defs>
+    <linearGradient id="bg" x1="80" y1="40" x2="1200" y2="680" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#120D1F"/>
+      <stop offset="1" stop-color="#090711"/>
+    </linearGradient>
+  </defs>
+</svg>
