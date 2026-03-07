@@ -1,8 +1,11 @@
 export type Mode = "Eco" | "Balanced" | "Freeze";
+export type HudCorner = "top-left" | "top-right" | "bottom-left" | "bottom-right";
+export type HudPositionMode = "corner" | "custom";
 
 export interface ProcessInfo {
   pid: number;
   name: string;
+  displayName: string;
   exe: string;
   cpu: number;
   memoryMb: number;
@@ -10,6 +13,8 @@ export interface ProcessInfo {
   foreground: boolean;
   optimizable: boolean;
   optimizedState: string;
+  iconHint: string;
+  ruleMatched?: string | null;
 }
 
 export interface SystemSnapshot {
@@ -30,6 +35,11 @@ export interface OptimizationRule {
   requireBackground: boolean;
   autoResume: boolean;
   enabled: boolean;
+  cpuLimitPct?: number;
+  ramLimitPct?: number;
+  diskLimitPct?: number;
+  gpuLimitPct?: number;
+  familyKey?: string;
 }
 
 export interface AutostartItem {
@@ -40,6 +50,7 @@ export interface AutostartItem {
   itemType: string;
   enabled: boolean;
   details: string;
+  iconHint: string;
 }
 
 export interface OfflinePresetResult {
@@ -55,6 +66,14 @@ export interface RegistryHealthItem {
   recommended: string;
   healthy: boolean;
   meaning: string;
+  severity: string;
+}
+
+export interface WindowBounds {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
 }
 
 export interface SecurityConfig {
@@ -62,12 +81,17 @@ export interface SecurityConfig {
   fileProtection: boolean;
   protectedApps: string[];
   lockEnabled: boolean;
+  lockOnRestore: boolean;
+  lockOnActivate: boolean;
+  graceMinutes: number;
+  appPasswordOnStart: boolean;
 }
 
 export interface SecurityRuntime {
   locked: boolean;
   lockedApp?: string | null;
   presentPopularApps: string[];
+  overlayBounds?: WindowBounds | null;
 }
 
 export interface SettingsState {
@@ -75,13 +99,101 @@ export interface SettingsState {
   autoApplyRules: boolean;
   aggressiveMode: boolean;
   minimizeToTray: boolean;
+  hudEnabled: boolean;
+  hudHotkey: string;
+  hudCorner: HudCorner;
+  hudOpacity: number;
+  hudScale: number;
+  hudShowCpu: boolean;
+  hudShowRam: boolean;
+  hudShowProcesses: boolean;
+  hudShowUptime: boolean;
+  hudShowTopApp: boolean;
+  hudPositionMode: HudPositionMode;
+  hudX: number;
+  hudY: number;
+  hudWidth: number;
+  hudHeight: number;
+  launchOnLogin: boolean;
 }
 
-// Compatibility aliases for legacy frontend files
+export interface WindowsBundleApp {
+  id: string;
+  name: string;
+  publisher: string;
+  path: string;
+  installed: boolean;
+  removable: boolean;
+  status: string;
+  startupEnabled: boolean;
+  permissionsSummary: string;
+  iconHint: string;
+}
+
+export interface InstalledProgram {
+  id: string;
+  name: string;
+  publisher: string;
+  version: string;
+  path: string;
+  startupEnabled: boolean;
+  kind: string;
+  permissionsSummary: string;
+  iconHint: string;
+}
+
+export interface AppInventory {
+  windowsApps: WindowsBundleApp[];
+  installedPrograms: InstalledProgram[];
+}
+
+export interface NetworkAdapter {
+  name: string;
+  status: string;
+  linkSpeed: string;
+  macAddress: string;
+  ipv4: string;
+  sentMb: number;
+  receivedMb: number;
+}
+
+export interface NetworkRule {
+  id: string;
+  processName: string;
+  limitKbps: number;
+  enabled: boolean;
+  note: string;
+}
+
+export interface NetworkOverview {
+  adapters: NetworkAdapter[];
+  rules: NetworkRule[];
+}
+
+export interface NetworkTuneResult {
+  success: boolean;
+  summary: string;
+}
+
+// Compatibility aliases for older files
 export type AppSettings = SettingsState;
 export type AutostartEntry = AutostartItem;
-export type OfflineProfile = { id: string; title: string; description: string; actions: string[]; risk: string };
+export type OfflineProfile = {
+  id: string;
+  title: string;
+  description: string;
+  actions: string[];
+  risk: string;
+};
 export type OfflineProfileResult = OfflinePresetResult;
-export type OverviewBundle = { dashboard?: unknown; processes?: ProcessInfo[]; rules?: OptimizationRule[]; autostart?: AutostartItem[]; offlineProfiles?: OfflineProfile[]; registryChecks?: RegistryHealthItem[]; security?: SecurityConfig; settings?: SettingsState };
+export type OverviewBundle = {
+  dashboard?: unknown;
+  processes?: ProcessInfo[];
+  rules?: OptimizationRule[];
+  autostart?: AutostartItem[];
+  registryChecks?: RegistryHealthItem[];
+  security?: SecurityConfig;
+  settings?: SettingsState;
+};
 export type RegistryCheck = RegistryHealthItem;
 export type SecuritySettings = SecurityConfig;

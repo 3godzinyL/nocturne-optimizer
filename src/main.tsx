@@ -3,40 +3,67 @@ import ReactDOM from "react-dom/client";
 import { WebviewWindow, getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow";
 import App from "./App";
 import { GuardOverlay } from "./components/GuardOverlay";
+import { DesktopHud } from "./components/DesktopHud";
+import { api } from "./lib/tauri";
 import "./styles.css";
 
 const params = new URLSearchParams(window.location.search);
-const isGuard = params.get("guard") === "1";
+const currentWindow = getCurrentWebviewWindow();
+const currentLabel = currentWindow.label;
+const isGuard = params.get("guard") === "1" || currentLabel === "guard";
+const isHud = params.get("hud") === "1" || currentLabel === "hud";
 
-if (!isGuard) {
-  const current = getCurrentWebviewWindow();
+function buildAppUrl(extraQuery: string) {
+  const url = new URL(window.location.href);
+  url.search = extraQuery;
+  return url.toString();
+}
+
+if (!isGuard && !isHud) {
   let guardWindow: WebviewWindow | null = null;
-  window.addEventListener("nocturne:open-guard", () => {
+  window.addEventListener("nocturne:open-guard", async () => {
+    const runtime = await api.getSecurityRuntime().catch(() => null);
+    const bounds = runtime?.overlayBounds;
+
     if (guardWindow) {
-      guardWindow.show().catch(() => undefined);
-      guardWindow.setFocus().catch(() => undefined);
-      return;
+      await guardWindow.close().catch(() => undefined);
+      guardWindow = null;
     }
+
     guardWindow = new WebviewWindow("guard", {
-      url: "/?guard=1",
+      url: buildAppUrl("?guard=1"),
       title: "Nocturne Guard",
-      width: 1280,
-      height: 720,
+      width: bounds?.width && bounds.width > 260 ? bounds.width : 1280,
+      height: bounds?.height && bounds.height > 180 ? bounds.height : 720,
+      x: bounds?.x,
+      y: bounds?.y,
       transparent: true,
       decorations: false,
       alwaysOnTop: true,
       skipTaskbar: true,
-      fullscreen: true,
+      fullscreen: !bounds,
       resizable: false,
       focus: true
     });
+
+    guardWindow.once("tauri://created", () => {
+      guardWindow?.setFocus().catch(() => undefined);
+      guardWindow?.show().catch(() => undefined);
+    });
+
     guardWindow.once("tauri://destroyed", () => {
       guardWindow = null;
     });
   });
-  current.show().catch(() => undefined);
+
+  currentWindow.show().catch(() => undefined);
 }
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>{isGuard ? <GuardOverlay /> : <App />}</React.StrictMode>
-);
+const root = document.getElementById("root");
+if (root) {
+  ReactDOM.createRoot(root).render(
+    <React.StrictMode>
+      {isGuard ? <GuardOverlay /> : isHud ? <DesktopHud /> : <App />}
+    </React.StrictMode>
+  );
+}
